@@ -21,27 +21,30 @@ struct DetailCardView: View {
     var body: some View {
         ScrollView{
             
-            VStack(spacing: 10){
-                AsyncImage(url: URL(string: placesItem.image)){
-                    phase in if let image = phase.image{
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            
-                        
-                    }
+            
+            AsyncImage(url: URL(string: placesItem.image)){
+                phase in if let image = phase.image{
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                    
+                    
                 }
+            }
                 .frame(height: 300)
                 .background(LinearGradient(gradient: Gradient(colors: [Color(.black).opacity(0.5), Color(.gray)]), startPoint: .top, endPoint: .bottom))
-                
-                Text(placesItem.name)
-                    .font(.title)
-                    .bold()
-                Text(placesItem.star)
-                    .font(.title)
-                Text(placesItem.description)
-                    .lineLimit(3)
-                
+            VStack(spacing: 10){
+                VStack(spacing: 10){
+                    Text(placesItem.name)
+                        .font(.title)
+                        .bold()
+                    Text(placesItem.star)
+                        .font(.title)
+                    Text(placesItem.description)
+                        .lineLimit(3)
+                }
+                .padding(.horizontal, 20)
+                .frame(maxWidth:400)
                 VStack(alignment: .leading,spacing: 25){
                     HStack{
                         Text("address")
@@ -72,12 +75,9 @@ struct DetailCardView: View {
                             .frame(width:85)
                         Text(placesItem.category)
                     }
-                    
-                    
-                    
-                    
                 }
                 .padding(.vertical,15)
+                .padding(.horizontal,15)
                 
                 VStack(alignment: .leading){
                     Text("Best Direction  :  ")
@@ -87,6 +87,7 @@ struct DetailCardView: View {
                         .frame(width: 150)
                     DirectionController(places: placesItem)
                 }
+                .padding(.horizontal,30)
                     
                 
                 MapsController(coordinate: locationCoordinate)
